@@ -26,8 +26,8 @@ Below are a few screenshots of the web app.
                 |-- run.py
           |-- data
                 |-- ETL Pipeline Preparation.ipynb
-                |-- message.csv
-                |-- ategories.csv
+                |-- disaster_messages.csv
+                |-- disaster_categories.csv
                 |-- Disaster_Response.db
                 |-- process_data.py
           |-- models
@@ -45,7 +45,7 @@ Below are a few screenshots of the web app.
           |-- README
 
 - App folder including the templates folder and "run.py" for the web application
-- Data folder containing "Disaster_Response.db", "categories.csv", "messages.csv", "process_data.py" and "ETL Pipeline Preparation.ipynb" for data cleaning and ETL.
+- Data folder containing "Disaster_Response.db", "disaster_categories.csv", "disaster_messages.csv", "process_data.py" and "ETL Pipeline Preparation.ipynb" for data cleaning and ETL.
 - Models folder including "classifier.pkl", "train_classifier.py" and "ML Pipeline Preparation.ipynb" for the Machine Learning model.
 - Images folder contain some images of the app and the running process.
 - README file
