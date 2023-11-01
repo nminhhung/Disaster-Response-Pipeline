@@ -1,6 +1,7 @@
 import json
 import plotly
 import pandas as pd
+import plotly.graph_objs as go
 
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
@@ -36,24 +37,26 @@ model = joblib.load("../models/classifier.pkl")
 # index webpage displays cool visuals and receives user input text for model
 @app.route('/')
 @app.route('/index')
+
+
 def index():
+    # Extract data needed for visuals
+    genre_counts = df['genre'].value_counts()
+    genre_names = genre_counts.index.tolist()
     
-    # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
-    genre_counts = df.groupby('genre').count()['message']
-    genre_names = list(genre_counts.index)
+    category_names = df.iloc[:, 4:].columns.tolist()
+    category_boolean = (df.iloc[:, 4:] != 0).sum().values.tolist()
     
-    # create visuals
-    # TODO: Below is an example - modify to create your own visuals
+    # Create visuals
     graphs = [
         {
             'data': [
-                Bar(
-                    x=genre_names,
-                    y=genre_counts
-                )
+                {
+                    'x': genre_names,
+                    'y': genre_counts,
+                    'type': 'bar'
+                }
             ],
-
             'layout': {
                 'title': 'Distribution of Message Genres',
                 'yaxis': {
@@ -63,14 +66,33 @@ def index():
                     'title': "Genre"
                 }
             }
+        },
+        {
+            'data': [
+                {
+                    'x': category_names,
+                    'y': category_boolean,
+                    'type': 'bar'
+                }
+            ],
+            'layout': {
+                'title': 'Distribution of Message Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Category",
+                    'tickangle': 20
+                }
+            }
         }
     ]
     
-    # encode plotly graphs in JSON
+    # Encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
     
-    # render web page with plotly graphs
+    # Render web page with plotly graphs
     return render_template('master.html', ids=ids, graphJSON=graphJSON)
 
 
