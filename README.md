@@ -37,6 +37,7 @@ Below are a few screenshots of the web app.
           |-- images
               |-- img1.png
               |-- img2.png
+              |-- img2_new.png
               |-- img3.png
               |-- img4.png
               |-- process_data.png
